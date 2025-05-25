@@ -1,0 +1,111 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+class Complex {
+private:
+    double real;
+    double imag;
+
+public:
+    Complex();
+    Complex(double r, double i);
+    Complex add(Complex);
+    Complex subtract(Complex);
+    Complex multiply(Complex);
+    Complex divide(Complex);
+    Complex conjugate();
+    double mod();
+    void display();
+};
+
+Complex::Complex() {
+    real = 0;
+    imag = 0;
+}
+
+Complex::Complex(double r, double i) {
+    real = r;
+    imag = i;
+}
+
+Complex Complex::add(Complex x) {
+    Complex sum;
+    sum.real = real + x.real;
+    sum.imag = imag + x.imag;
+    return sum;
+}
+
+Complex Complex::subtract(Complex x) {
+    Complex res;
+    res.real = real - x.real;
+    res.imag = imag - x.imag;
+    return res;
+}
+
+Complex Complex::multiply(Complex x) {
+    Complex prod;
+    prod.real = real * x.real - imag * x.imag;
+    prod.imag = real * x.imag + imag * x.real;
+    return prod;
+}
+
+Complex Complex::divide(Complex y) {
+    Complex quo;
+    double mods = y.mod();
+    Complex conj = y.conjugate();
+
+    if (mods == 0)
+        cout << "Unable to divide the complex numbers" << endl;
+    else {
+        quo = this->multiply(conj);
+        quo.real = quo.real / mods;
+        quo.imag = quo.imag / mods;
+    }
+    return quo;
+}
+
+Complex Complex::conjugate() {
+    Complex conj;
+    conj.real = real;
+    conj.imag = -imag;
+    return conj;
+}
+
+void Complex::display() {
+    cout << "Real part: " << real << endl;
+    cout << "Imaginary part: " << imag << endl;
+    cout << endl;
+}
+
+double Complex::mod() {
+    double mod2 = real * real + imag * imag;
+    return sqrt(mod2);
+}
+
+int main() {
+    Complex a = Complex(2, 3);
+    Complex b(6, -1);
+
+    cout << "a: " << endl;
+    a.display();
+    cout << "b: " << endl;
+    b.display();
+    cout << "a + b " << endl;
+    Complex c = a.add(b);
+    cout << "Sum: " << endl;
+    c.display();
+    cout << "a - b " << endl;
+    Complex d = a.subtract(b);
+    cout << "Difference: " << endl;
+    d.display();
+    cout << "a * b " << endl;
+    Complex e = a.multiply(b);
+    cout << "Product: " << endl;
+    e.display();
+    cout << "a / b " << endl;
+    Complex f = a.divide(b);
+    cout << "Quotient: " << endl;
+    f.display();
+    return 0;
+}
