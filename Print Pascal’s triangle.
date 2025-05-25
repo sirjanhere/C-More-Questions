@@ -1,0 +1,26 @@
+#include <iostream>
+using namespace std;
+
+// Function to print Pascal's Triangle
+void printPascalsTriangle(int n) {
+    for (int line = 0; line < n; line++) {
+        for (int space = 0; space < n - line - 1; space++) {
+            cout << " ";  // Printing spaces for formatting
+        }
+        
+        int num = 1;  // First number in every line is 1
+        for (int i = 0; i <= line; i++) {
+            cout << num << " ";  // Printing the number
+            num = num * (line - i) / (i + 1);  // Calculating next number in the line
+        }
+        cout << endl;  // Newline after each row
+    }
+}
+
+int main() {
+    int n;
+    cout << "Enter the number of rows for Pascal's Triangle: ";
+    cin >> n;  // Input number of rows
+    printPascalsTriangle(n);  // Print the triangle
+    return 0;
+}
