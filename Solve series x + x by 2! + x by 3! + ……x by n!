@@ -1,0 +1,32 @@
+#include <iostream>
+using namespace std;
+
+double factorial(int n) {
+    double fact = 1;
+    for(int i = 1; i <= n; ++i) {
+        fact *= i;
+    }
+    return fact;
+}
+
+double computeSeries(double x, int n) {
+    double sum = 0;
+    for(int i = 1; i <= n; ++i) {
+        sum += x / factorial(i);
+    }
+    return sum;
+}
+
+int main() {
+    double x;
+    int n;
+    cout << "Enter the value of x: ";
+    cin >> x;
+    cout << "Enter the number of terms n: ";
+    cin >> n;
+    
+    double result = computeSeries(x, n);
+    cout << "The sum of the series is: " << result << endl;
+    
+    return 0;
+}
