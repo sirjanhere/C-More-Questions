@@ -1,0 +1,52 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+
+// Function to check if the number is binary
+bool isBinary(string n, int index = 0) {
+    // Base case: If we've checked all characters
+    if (index == n.length()) {
+        return true;
+    }
+
+    // If the current character is not '0' or '1', it's not binary
+    if (n[index] != '0' && n[index] != '1') {
+        return false;
+    }
+
+    // Recursive case: Check the next character
+    return isBinary(n, index + 1);
+}
+
+// Function to convert binary to decimal using recursion
+int binaryToDecimal(string binary, int index = 0, int power = 0) {
+    // Base case: If we reach the end of the string, return 0
+    if (index == binary.length()) {
+        return 0;
+    }
+
+    // If the current digit is '1', add the corresponding power of 2 to the result
+    if (binary[index] == '1') {
+        return pow(2, binary.length() - 1 - index) + binaryToDecimal(binary, index + 1, power + 1);
+    }
+
+    // If the current digit is '0', just skip to the next digit
+    return binaryToDecimal(binary, index + 1, power + 1);
+}
+
+int main() {
+    string binary;
+    cout << "Enter a binary number: ";
+    cin >> binary;
+
+    // Check if the entered number is binary
+    if (isBinary(binary)) {
+        int decimal = binaryToDecimal(binary);
+        cout << "The decimal equivalent is: " << decimal << endl;
+    } else {
+        cout << "Please enter a valid binary number (only 0s and 1s)." << endl;
+    }
+
+    return 0;
+}
