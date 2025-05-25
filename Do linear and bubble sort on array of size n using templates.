@@ -1,0 +1,66 @@
+#include <iostream>
+#include <algorithm> // for std::swap
+using namespace std;
+
+// Selection Sort - Finds min and swaps into place (unstable)
+void selectionSort(int arr[], int n) {
+    for (int i = 0; i < n-1; i++) {
+        int min_idx = i;
+        for (int j = i+1; j < n; j++) {
+            if (arr[j] < arr[min_idx]) {
+                min_idx = j; // Track the smallest element
+            }
+        }
+        swap(arr[i], arr[min_idx]); // Only 1 swap per pass
+    }
+}
+
+// Bubble Sort - Repeatedly swaps adjacent elements (stable)
+void bubbleSort(int arr[], int n) {
+    for (int i = 0; i < n-1; i++) {
+        bool swapped = false;
+        for (int j = 0; j < n-i-1; j++) {
+            if (arr[j] > arr[j+1]) {
+                swap(arr[j], arr[j+1]); // Many swaps possible
+                swapped = true;
+            }
+        }
+        if (!swapped) break; // Early exit if no swaps
+    }
+}
+
+// Reset array to original unsorted state
+void resetArray(int original[], int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        arr[i] = original[i];
+    }
+}
+
+int main() {
+    int n;
+    cout << "Enter array size: ";
+    cin >> n;
+
+    int arr[n], original[n];
+    cout << "Enter " << n << " numbers: ";
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+        original[i] = arr[i]; // Store original for reset
+    }
+
+    // Selection Sort
+    selectionSort(arr, n);
+    cout << "After Selection Sort: ";
+    for (int i = 0; i < n; i++) cout << arr[i] << " ";
+    cout << endl;
+
+    // Reset array
+    resetArray(original, arr, n);
+
+    // Bubble Sort
+    bubbleSort(arr, n);
+    cout << "After Bubble Sort: ";
+    for (int i = 0; i < n; i++) cout << arr[i] << " ";
+
+    return 0;
+}
