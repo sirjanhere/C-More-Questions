@@ -1,0 +1,68 @@
+#include <iostream>
+using namespace std;
+
+// Template function to find minimum and maximum in an array
+template <typename T>
+void findMinMax(const T arr[], int size, T& minVal, T& maxVal) {
+    if (size == 0) return; // Handle empty array
+    
+    minVal = arr[0];
+    maxVal = arr[0];
+    
+    for (int i = 1; i < size; ++i) {
+        if (arr[i] < minVal) {
+            minVal = arr[i];
+        }
+        if (arr[i] > maxVal) {
+            maxVal = arr[i];
+        }
+    }
+}
+
+int main() {
+    int n;
+    cout << "Enter array size: ";
+    cin >> n;
+    
+    if (n <= 0) {
+        cout << "Invalid size!" << endl;
+        return 1;
+    }
+
+    cout << "1. Integer\n2. Double\n3. Char\nChoose data type: ";
+    int choice;
+    cin >> choice;
+
+    if (choice == 1) {
+        int arr[n];
+        cout << "Enter " << n << " integers: ";
+        for (int i = 0; i < n; ++i) cin >> arr[i];
+        
+        int minVal, maxVal;
+        findMinMax(arr, n, minVal, maxVal);
+        cout << "Min: " << minVal << ", Max: " << maxVal << endl;
+    } 
+    else if (choice == 2) {
+        double arr[n];
+        cout << "Enter " << n << " doubles: ";
+        for (int i = 0; i < n; ++i) cin >> arr[i];
+        
+        double minVal, maxVal;
+        findMinMax(arr, n, minVal, maxVal);
+        cout << "Min: " << minVal << ", Max: " << maxVal << endl;
+    } 
+    else if (choice == 3) {
+        char arr[n];
+        cout << "Enter " << n << " characters: ";
+        for (int i = 0; i < n; ++i) cin >> arr[i];
+        
+        char minVal, maxVal;
+        findMinMax(arr, n, minVal, maxVal);
+        cout << "Min (ASCII): " << minVal << ", Max (ASCII): " << maxVal << endl;
+    } 
+    else {
+        cout << "Invalid choice!" << endl;
+    }
+
+    return 0;
+}
