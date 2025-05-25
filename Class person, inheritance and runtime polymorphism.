@@ -1,0 +1,57 @@
+#include <iostream>
+using namespace std;
+
+class Person {
+public:
+    string name;
+    virtual void display() {  // Added 'virtual' for polymorphism
+        cout << "Name: " << name << endl;
+    }
+};
+
+class Student : public Person {
+public:
+    string course;
+    int marks;  // Fixed typo ('mains' ? 'marks')
+    int year;
+    void display() override {
+        Person::display();  // Reuse base class method
+        cout << "Course: " << course << endl;
+        cout << "Marks: " << marks << endl;
+        cout << "Year: " << year << endl;
+    }
+};
+
+class Employee : public Person {
+public:
+    string department;
+    double salary;
+    void display() override {
+        Person::display();
+        cout << "Department: " << department << endl;
+        cout << "Salary: " << salary << endl;
+    }
+};
+
+int main() {
+    Person* p;  // Base class pointer
+    Student s;
+    Employee e;
+
+    p = &s;
+    p->name = "Alice";
+    s.course = "Computer Science";
+    s.marks = 95;  // Fixed: Assign value, not address
+    s.year = 2022;
+
+    p->display();  // Calls Student::display()
+
+    p = &e;
+    p->name = "Bob";
+    e.department = "Engineering";
+    e.salary = 50000.0;
+
+    p->display();  // Calls Employee::display()
+
+    return 0;
+}
